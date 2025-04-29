@@ -1,0 +1,8 @@
+body { background-color: #f5f5f5; font-family: Arial; }
+.dashboard { background-color: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.card { background-color: #025c0e; color: white; }
+.table img { max-width: 50px; border-radius: 5px; }
+.btn-voltar { margin-bottom: 20px; }
+@media (max-width: 768px) {
+    .table-responsive { overflow-x: auto; }
+}
