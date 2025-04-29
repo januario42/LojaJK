@@ -69,7 +69,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         echo json_encode(["status" => "success", "mensagem" => "Cadastro realizado com sucesso! Redirecionando..."]);
     } catch (mysqli_sql_exception $e) {
-        echo json_encode(["status" => "error", "mensagem" => "Erro ao cadastrar. Tente novamente mais tarde."]);
+        $erro = $e->getMessage();
+        
+        if (strpos($erro, 'Duplicate entry') !== false) {
+            $mensagem = "Este e-mail ou CPF já está cadastrado.";
+        } elseif (strpos($erro, 'foreign key constraint') !== false) {
+            $mensagem = "Erro de relacionamento com outra tabela. Tente novamente mais tarde.";
+        } elseif (strpos($erro, 'Data too long') !== false) {
+            $mensagem = "Algum campo contém dados muito grandes. Verifique os limites.";
+        } else {
+            $mensagem = "Erro ao cadastrar. Tente novamente mais tarde.";
+        }
+        echo json_encode(["status" => "error", "mensagem" => $mensagem]);
     }
     exit();
 }
@@ -82,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - VENANCIO</title>
-    <link rel="stylesheet" href="cadastro.css">
+    <link rel="stylesheet" href="./css/cadastro.css">
 </head>
 <body>
 
@@ -102,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </select>
 
         <div id="vendedorCampos" style="display: none;">
-            <input type="text" name="cpf_cnpj" placeholder="CPF ou CNPJ">
+            <input type="text" name="cpf_cnpj" id= "cpf_cnpj" placeholder="CPF ou CNPJ">
             <input type="text" name="nome_loja" placeholder="Nome da Loja">
         </div>
 
@@ -147,6 +158,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         event.preventDefault();
         var formData = new FormData(this);
 
+        const tipoUsuario = document.getElementById("tipo_usuario").value;
+
+        if(tipoUsuario === "vendedor"){
+            const cpf = document.getElementById('cpf_cnpj').value;
+
+            const validacao = validarCPFECNPJ(cpf);
+            if(!validacao.valido){
+                let mensagem = document.getElementById('mensagemRetorno');
+                mensagem.textContent = validacao.mensagem;
+                mensagem.style.color = "red";
+                return;
+            }
+        }
+
         fetch("cadastro.php", { method: "POST", body: formData })
             .then(response => response.json())
             .then(data => {
@@ -164,6 +189,84 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("tipo_usuario").dispatchEvent(new Event("change"));
     });
+
+
+    function validarCPFECNPJ(valor) {
+        valor = valor.replace(/[^\d]+/g, '');
+
+        if (valor.length === 11) {
+            // Validação de CPF
+            if (/^(\d)\1+$/.test(valor)) {
+                return { valido: false, mensagem: "CPF inválido. Por favor, verifique o número." };
+            }
+
+            // Verificação do primeiro dígito
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(valor.charAt(i)) * (10 - i);
+            }
+            let resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(valor.charAt(9))) {
+                return { valido: false, mensagem: "CPF inválido." };
+            }
+
+            // Verificação do segundo dígito
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(valor.charAt(i)) * (11 - i);
+            }
+            resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(valor.charAt(10))) {
+                return { valido: false, mensagem: "CPF inválido." };
+            }
+
+            return { valido: true, mensagem: "" };
+
+        } else if (valor.length === 14) {
+            // Validação de CNPJ
+            if (/^(\d)\1+$/.test(valor)) {
+                return { valido: false, mensagem: "CNPJ inválido. Por favor, verifique o número." };
+            }
+
+            let tamanho = valor.length - 2;
+            let numeros = valor.substring(0, tamanho);
+            let digitos = valor.substring(tamanho);
+            let soma = 0;
+            let pos = tamanho - 7;
+
+            for (let i = tamanho; i >= 1; i--) {
+                soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
+                if (pos < 2) pos = 9;
+            }
+
+            let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+            if (resultado !== parseInt(digitos.charAt(0))) {
+                return { valido: false, mensagem: "CNPJ inválido." };
+            }
+
+            tamanho += 1;
+            numeros = valor.substring(0, tamanho);
+            soma = 0;
+            pos = tamanho - 7;
+
+            for (let i = tamanho; i >= 1; i--) {
+                soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
+                if (pos < 2) pos = 9;
+            }
+
+            resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+            if (resultado !== parseInt(digitos.charAt(1))) {
+                return { valido: false, mensagem: "CNPJ inválido." };
+            }
+
+            return { valido: true, mensagem: "" };
+
+        } else {
+            return { valido: false, mensagem: "Número inválido. Deve ter 11 (CPF) ou 14 (CNPJ) dígitos."};
+        }
+    }
 </script>
 
 </body>

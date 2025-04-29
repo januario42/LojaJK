@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🔐 Redefinir Senha - VENANCIO</title>
-  <link rel="stylesheet" href="redefinir_senha.css" />
+  <link rel="stylesheet" href="./css/redefinir_senha.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" />
 </head>
 <body>

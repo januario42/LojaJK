@@ -44,13 +44,13 @@ $quantidadeFavoritos = count($favoritos);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site VENANCIO</title>
+    <title>Site LojaJK</title>
     <!-- fontawesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <!-- swiper js cdn link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <!-- custom css file -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/logado.css">
 </head>
 
 <body>
@@ -89,10 +89,10 @@ $quantidadeFavoritos = count($favoritos);
 
 
                 <button class="action-btn">
-    <a href="favoritos.php" class="fas fa-heart"></a>
-    <span class="count"><?= $quantidadeFavoritos ?></span>
-</button>
-
+                    <a href="favoritos.php" class="fas fa-heart"></a>
+                    <span class="count"><?= $quantidadeFavoritos ?></span>
+                </button>
+               
 
                 <button class="action-btn">
                     <a href="#" class="fas fa-shopping-cart"></a>
@@ -107,7 +107,7 @@ $quantidadeFavoritos = count($favoritos);
             <nav class="navbar">
                 <a href="#home">HOME</a>
                 <a href="#Promo">PROMOÇÕES</a>
-                <a href="#about">SOBRE NÓS</a>
+                <a href="sobreNos.php">SOBRE NÓS</a>
                 <a href="#services">NOSSOS SERVIÇOS</a>
                 <a href="#product">NOSSOS PRODUTOS</a>
                 <a href="#review">AVALIAÇÃO DOS CLIENTES</a>
@@ -220,31 +220,31 @@ $quantidadeFavoritos = count($favoritos);
 
                 <div class="box">
                     <data class="card-number" value="01">01</data>
-                    <h3>Texto de sua preferencia</h3>
+                    <h3>Texto de sua preferência</h3>
                     <p>Crie peças de mobiliário personalizadas, adaptadas ao seu estilo e necessidades únicas.</p>
                 </div>
 
                 <div class="box">
                     <data class="card-number" value="02">02</data>
-                    <h3>Texto de sua preferencia</h3>
+                    <h3>Texto de sua preferência</h3>
                     <p>Crie peças de mobiliário personalizadas, adaptadas ao seu estilo e necessidades únicas.</p>
                 </div>
 
                 <div class="box">
                     <data class="card-number" value="03">03</data>
-                    <h3>Texto de sua preferencia</h3>
+                    <h3>Texto de sua preferência</h3>
                     <p>Crie peças de mobiliário personalizadas, adaptadas ao seu estilo e necessidades únicas.</p>
                 </div>
 
                 <div class="box">
                     <data class="card-number" value="04">04</data>
-                    <h3>Texto de sua preferencia</h3>
+                    <h3>Texto de sua preferência</h3>
                     <p>Crie peças de mobiliário personalizadas, adaptadas ao seu estilo e necessidades únicas.</p>
                 </div>
 
                 <div class="box">
                     <data class="card-number" value="05">05</data>
-                    <h3>Texto de sua preferencia</h3>
+                    <h3>Texto de sua preferência</h3>
                     <p>Crie peças de mobiliário personalizadas, adaptadas ao seu estilo e necessidades únicas.</p>
                 </div>
 
@@ -260,10 +260,10 @@ $quantidadeFavoritos = count($favoritos);
 
 
         <section class="product" id="product">
-    <h1 class="heading">NOSSOS <span>PRODUTOS</span></h1>
-    <div class="box-container">
-        <?php if ($result && $result->num_rows > 0): ?>
-            <?php while ($produto = $result->fetch_assoc()): ?>
+            <h1 class="heading">NOSSOS <span>PRODUTOS</span></h1>
+            <div class="box-container">
+                <?php if ($result && $result->num_rows > 0): ?>
+                <?php while ($produto = $result->fetch_assoc()): ?>
                 <?php
                     $id = $produto['id'];
                     $imagem = "produtos/" . escapar($produto['imagem']);
@@ -282,7 +282,8 @@ $quantidadeFavoritos = count($favoritos);
                 ?>
                 <div class="box">
                     <figure class="cardbanner">
-                        <img src="<?= $imagem ?>" width="200" height="200" loading="lazy" alt="Imagem de <?= escapar($produto['nome']) ?>">
+                        <img src="<?= $imagem ?>" width="200" height="200" loading="lazy"
+                            alt="Imagem de <?= escapar($produto['nome']) ?>">
                         <div class="btn-wrapper">
                             <button class="product-btn btn-favorito" data-id="<?= $produto['id']; ?>">
                                 <i class="<?= $isFavorito ? 'fas' : 'far'; ?> fa-heart"></i>
@@ -302,16 +303,17 @@ $quantidadeFavoritos = count($favoritos);
                             <data class="price">R$<?= number_format($precoFinal, 2, ',', '.') ?></data>
                             <span style="color: green; font-size: 0.9rem;">-<?= $desconto['percentual']; ?>%</span>
                             <br>
-                            <small style="color: #666;">Promoção válida até <?= date('d/m/Y', strtotime($desconto['validade'])); ?></small>
+                            <small style="color: #666;">Promoção válida até
+                                <?= date('d/m/Y', strtotime($desconto['validade'])); ?></small>
                         </div>
                     </div>
                 </div>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p>Nenhum produto disponível.</p>
-        <?php endif; ?>
-    </div>
-</section>
+                <?php endwhile; ?>
+                <?php else: ?>
+                <p>Nenhum produto disponível.</p>
+                <?php endif; ?>
+            </div>
+        </section>
 
         <script>
         document.querySelectorAll('.btn-favorito').forEach(btn => {
@@ -378,7 +380,7 @@ $quantidadeFavoritos = count($favoritos);
                                     </div>
                                 </div>
                             </div>
-                            <p>Texto de sua preferencia.</p>
+                            <p>Texto de sua preferência.</p>
                         </div>
 
                         <div class="swiper-slide slide">
@@ -397,7 +399,7 @@ $quantidadeFavoritos = count($favoritos);
                                     </div>
                                 </div>
                             </div>
-                            <p>Texto de sua preferencia.</p>
+                            <p>Texto de sua preferência.</p>
                         </div>
 
                         <div class="swiper-slide slide">
@@ -416,7 +418,7 @@ $quantidadeFavoritos = count($favoritos);
                                     </div>
                                 </div>
                             </div>
-                            <p>Texto de sua preferencia.</p>
+                            <p>Texto de sua preferência.</p>
                         </div>
 
                         <div class="swiper-slide slide">
@@ -435,7 +437,7 @@ $quantidadeFavoritos = count($favoritos);
                                     </div>
                                 </div>
                             </div>
-                            <p>Texto de sua preferencia.</p>
+                            <p>Texto de sua preferência.</p>
                         </div>
 
                         <div class="swiper-slide slide">
@@ -454,7 +456,7 @@ $quantidadeFavoritos = count($favoritos);
                                     </div>
                                 </div>
                             </div>
-                            <p>Texto de sua preferencia.</p>
+                            <p>Texto de sua preferência.</p>
                         </div>
 
                         <div class="swiper-slide slide">
@@ -473,7 +475,7 @@ $quantidadeFavoritos = count($favoritos);
                                     </div>
                                 </div>
                             </div>
-                            <p>Texto de sua preferencia.</p>
+                            <p>Texto de sua preferência.</p>
                         </div>
 
                     </div>
@@ -490,7 +492,7 @@ $quantidadeFavoritos = count($favoritos);
                             <i class="fas fa-angle-down"></i>
                         </div>
                         <p class="accordion-content">
-                            Texto de sua preferencia.
+                            Texto de sua preferência.
                         </p>
                     </div>
 
@@ -500,17 +502,17 @@ $quantidadeFavoritos = count($favoritos);
                             <i class="fas fa-angle-down"></i>
                         </div>
                         <p class="accordion-content">
-                            Texto de sua preferencia.
+                            Texto de sua preferência.
                         </p>
                     </div>
 
                     <div class="accordion">
                         <div class="accordion-heading">
-                            <h3>aceita credito debito e pix?</h3>
+                            <h3>aceita crédito, débito e pix?</h3>
                             <i class="fas fa-angle-down"></i>
                         </div>
                         <p class="accordion-content">
-                            Texto de sua preferencia.
+                            Texto de sua preferência.
                         </p>
                     </div>
 
@@ -520,7 +522,7 @@ $quantidadeFavoritos = count($favoritos);
                             <i class="fas fa-angle-down"></i>
                         </div>
                         <p class="accordion-content">
-                            Texto de sua preferencia.
+                            Texto de sua preferência.
                         </p>
                     </div>
 
@@ -538,9 +540,9 @@ $quantidadeFavoritos = count($favoritos);
 
             <div class="content">
                 <h3>informe </h3>
-                <h6>como nos podemos melhorar</h6>
+                <h6>como nós podemos melhorar</h6>
                 <p></p>
-                <input type="email" class="email" placeholder="Seu email">
+                <input type="email" class="email" placeholder="Seu e-mail">
                 <a href="#" class="btn"> Enviar</a>
             </div>
 
@@ -583,7 +585,7 @@ $quantidadeFavoritos = count($favoritos);
 
             </div>
 
-            <div class="credit">© Feito por.<span> Enzo</span> </div>
+            <div class="credit">© Feito por.<span> Kauã Januário e Pedro Rodrigues</span> </div>
 
         </section>
 
@@ -623,6 +625,7 @@ $quantidadeFavoritos = count($favoritos);
 
 
         <!-- swiper js cdn link -->
+         
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <!-- custom js file -->
         <script src="script.js"></script>

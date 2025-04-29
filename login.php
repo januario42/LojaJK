@@ -44,8 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site VENANCIO</title>
-    <link rel="stylesheet" href="login.css">
+    <title>Site LojaJK</title>
+    <link rel="stylesheet" href="./css/login.css">
     <script>
         // Função para esconder a mensagem de erro após 3 segundos
         function hideError() {

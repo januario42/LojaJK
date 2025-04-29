@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>Editar Perfil</title>
-    <link rel="stylesheet" href="editar_perfil.css">
+    <link rel="stylesheet" href="./css/editar_perfil.css">
 
 </head>
 <body>
@@ -98,24 +98,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php if ($erro): ?>
         <div class="alert alert-danger"><?php echo $erro; ?></div>
     <?php endif; ?>
-        <form action="editar_perfil.php" method="post" enctype="multipart/form-data" class="shadow p-4 rounded bg-light">
-            <div class="mb-3">
-                <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control shadow-sm" name="nome" value="<?php echo htmlspecialchars($nome); ?>" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">E-mail</label>
-                <input type="email" class="form-control shadow-sm" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
-            </div>
-            <div class="mb-3">
-                <label for="senha_atual" class="form-label">Senha Atual</label>
-                <input type="password" class="form-control shadow-sm" name="senha_atual" required>
-            </div>
-            <div class="mb-3">
-                <label for="senha" class="form-label">Nova Senha (opcional)</label>
-                <input type="password" class="form-control shadow-sm" name="senha">
-            </div>
-            <div class="mb-3">
+    <form action="editar_perfil.php" method="post" enctype="multipart/form-data" class="shadow p-4 rounded bg-light">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control shadow-sm" name="nome" value="<?php echo htmlspecialchars($nome); ?>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">E-mail</label>
+            <input type="email" class="form-control shadow-sm" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="senha_atual" class="form-label">Senha Atual</label>
+            <input type="password" class="form-control shadow-sm" name="senha_atual" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="senha" class="form-label">Nova Senha (opcional)</label>
+            <input type="password" class="form-control shadow-sm" name="senha">
+        </div>
+
+        <div class="mb-3">
             <label for="imagem_perfil" class="form-label">Imagem de Perfil</label>
             <input type="file" class="form-control" name="imagem_perfil">
             <?php if (!empty($imagem_perfil)): ?>
@@ -126,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="submit" class="btn-salvar">Salvar Alterações</button>
         <a href="perfil.php" class="btn-cancelar">Cancelar</a>
     </form>
-    </div>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

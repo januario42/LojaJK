@@ -62,115 +62,107 @@ $resultado = $stmt->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard do Vendedor</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body { background-color: #f5f5f5; font-family: Arial; }
-        .dashboard { background-color: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .card { background-color: #025c0e; color: white; }
-        .table img { max-width: 50px; border-radius: 5px; }
-        .btn-voltar { margin-bottom: 20px; }
-        @media (max-width: 768px) {
-            .table-responsive { overflow-x: auto; }
-        }
-    </style>
-</head>
-<body class="container mt-5">
-    <div class="dashboard">
-        <a href="perfil.php" class="btn btn-secondary btn-voltar">← Voltar ao Perfil</a>
-        <h2>Bem-vindo ao seu Painel, <?php echo htmlspecialchars($_SESSION['usuario']); ?>!</h2>
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard do Vendedor</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="./css/dashboard.css"> 
+        
+    </head>
+    <body class="container mt-5">
+        <div class="dashboard">
+            <a href="perfil.php" class="btn btn-secondary btn-voltar">← Voltar ao Perfil</a>
+            <h2>Bem-vindo ao seu Painel, <?php echo htmlspecialchars($_SESSION['usuario']); ?>!</h2>
 
-        <div class="row mt-4 mb-4">
-            <div class="col-md-3 mb-3">
-                <div class="card p-3">
-                    <h5>Produtos cadastrados</h5>
-                    <p class="fs-4"><?php echo $total_produtos; ?></p>
+            <div class="row mt-4 mb-4">
+                <div class="col-md-3 mb-3">
+                    <div class="card p-3">
+                        <h5>Produtos cadastrados</h5>
+                        <p class="fs-4"><?php echo $total_produtos; ?></p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card p-3">
+                        <h5>Vendas realizadas</h5>
+                        <p class="fs-4"><?php echo $total_vendas; ?></p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card p-3">
+                        <h5>Faturamento total</h5>
+                        <p class="fs-4">R$ <?php echo number_format($faturamento_total, 2, ',', '.'); ?></p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card p-3">
+                        <h5>Ticket médio</h5>
+                        <p class="fs-4">R$ <?php echo number_format($ticket_medio, 2, ',', '.'); ?></p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <div class="card p-3">
-                    <h5>Vendas realizadas</h5>
-                    <p class="fs-4"><?php echo $total_vendas; ?></p>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card p-3">
-                    <h5>Faturamento total</h5>
-                    <p class="fs-4">R$ <?php echo number_format($faturamento_total, 2, ',', '.'); ?></p>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card p-3">
-                    <h5>Ticket médio</h5>
-                    <p class="fs-4">R$ <?php echo number_format($ticket_medio, 2, ',', '.'); ?></p>
-                </div>
-            </div>
-        </div>
 
-        <div class="mb-5">
-            <h4 class="mb-3">Faturamento Mensal</h4>
-            <canvas id="graficoFaturamentoMes"></canvas>
-        </div>
+            <div class="mb-5">
+                <h4 class="mb-3">Faturamento Mensal</h4>
+                <canvas id="graficoFaturamentoMes"></canvas>
+            </div>
 
-        <h4>Últimos Produtos Adicionados</h4>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Imagem</th>
-                        <th>Nome</th>
-                        <th>Preço</th>
-                        <th>Estoque</th>
-                        <th>Data</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($produto = $resultado->fetch_assoc()): ?>
+            <h4>Últimos Produtos Adicionados</h4>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td><img src="produtos/<?php echo htmlspecialchars($produto['imagem']); ?>" alt="img"></td>
-                            <td><?php echo htmlspecialchars($produto['nome']); ?></td>
-                            <td>R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></td>
-                            <td><?php echo $produto['estoque']; ?></td>
-                            <td><?php echo date('d/m/Y', strtotime($produto['data_cadastro'])); ?></td>
+                            <th>Imagem</th>
+                            <th>Nome</th>
+                            <th>Preço</th>
+                            <th>Estoque</th>
+                            <th>Data</th>
                         </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php while ($produto = $resultado->fetch_assoc()): ?>
+                            <tr>
+                                <td><img src="produtos/<?php echo htmlspecialchars($produto['imagem']); ?>" alt="img"></td>
+                                <td><?php echo htmlspecialchars($produto['nome']); ?></td>
+                                <td>R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></td>
+                                <td><?php echo $produto['estoque']; ?></td>
+                                <td><?php echo date('d/m/Y', strtotime($produto['data_cadastro'])); ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
-    <script>
-        const ctx = document.getElementById('graficoFaturamentoMes').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                datasets: [{
-                    label: 'Faturamento por Mês (R$)',
-                    data: [<?php echo implode(",", $faturamento_mes); ?>],
-                    backgroundColor: '#025c0e'
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: { callback: value => 'R$ ' + value.toLocaleString('pt-BR') }
-                    }
+        <script>
+            const ctx = document.getElementById('graficoFaturamentoMes').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    datasets: [{
+                        label: 'Faturamento por Mês (R$)',
+                        data: [<?php echo implode(",", $faturamento_mes); ?>],
+                        backgroundColor: '#025c0e'
+                    }]
                 },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Faturamento Mensal'
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { callback: value => 'R$ ' + value.toLocaleString('pt-BR') }
+                        }
                     },
-                    legend: { display: false }
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Faturamento Mensal'
+                        },
+                        legend: { display: false }
+                    }
                 }
-            }
-        });
-    </script>
-</body>
+            });
+        </script>
+    </body>
 </html>
