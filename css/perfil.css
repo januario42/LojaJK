@@ -1,0 +1,151 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    overflow-x: hidden;
+}
+
+/* Cabeçalho */
+.profile-header {
+    background-color: #025c0e;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-header a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.profile-header h1 {
+    font-size: 24px;
+}
+
+/* Container principal */
+.profile-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+}
+
+/* Barra lateral */
+.profile-sidebar {
+    text-align: center;
+}
+
+.profile-sidebar img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.profile-sidebar h4 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.profile-sidebar p {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.profile-sidebar h5 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #025c0e;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #02410a;
+}
+
+.btn-edit-profile {
+    background-color: #333;
+}
+
+.btn-edit-profile:hover {
+    background-color: #111;
+}
+
+/* Conteúdo principal */
+.profile-content {
+    min-width: 0;
+}
+
+.profile-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Tabela */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+}
+
+.table thead {
+    background-color: #f5f5f5;
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.nav-link {
+    color: #025c0e;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+}

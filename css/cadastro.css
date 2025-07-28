@@ -1,0 +1,135 @@
+/* cadastro.css */
+body {
+    background: #f4f4f4; /* Fundo cinza suave para contraste */
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.cadastro-container {
+    background: #ffffff; /* Fundo branco */
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Sombra mais forte para dar profundidade */
+    text-align: center;
+    width: 380px;
+    position: relative;
+    animation: fadeIn 0.8s ease-out;
+    border: 1px solid #ccc; /* Borda suave ao redor do card */
+}
+
+h2 {
+    font-size: 2rem;
+    color: #025c0e;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+    text-align: left;
+}
+
+input, select {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.2rem;
+    color: #333;
+    background: #f9f9f9; /* Fundo mais suave nos campos */
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Borda arredondada mais sutil */
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+}
+
+input:focus, select:focus {
+    background-color: #e3f2e1; /* Fundo suave no foco */
+    box-shadow: 0 0 8px rgba(2, 92, 14, 0.7);
+    outline: none;
+    border-color: #025c0e;
+}
+
+button {
+    width: 100%;
+    padding: 1.3rem;
+    font-size: 1.3rem;
+    color: #fff;
+    background-color: #025c0e;
+    border: none;
+    border-radius: 8px; /* Borda mais arredondada */
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    margin-top: 1rem;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background-color: #014a0b; /* Cor mais escura no hover */
+}
+
+.message {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+}
+
+.message a {
+    color: #025c0e;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.message a:hover {
+    text-decoration: underline;
+}
+
+#forcaSenha {
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+#mensagemRetorno {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+}
+
+#vendedorCampos {
+    display: none;
+    margin-top: 10px;
+}
+
+/* Efeito de animação */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 400px) {
+    .cadastro-container {
+        width: 90%;
+        padding: 20px;
+    }
+}
