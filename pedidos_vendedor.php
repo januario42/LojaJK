@@ -9,22 +9,25 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['tipo_usuario'] !== 'vendedor')
 
 $vendedor_id = $_SESSION['id_usuario'];
 
-// Processar atualização de status
+// -----------------------------
+// Atualizar status do pedido
+// -----------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pedido_id']) && isset($_POST['novo_status'])) {
     $pedido_id = $_POST['pedido_id'];
     $novo_status = $_POST['novo_status'];
-    
-    // Verificar se o pedido pertence ao vendedor
-    $sql_verificar = "SELECT COUNT(*) as total FROM itens_pedido ip 
-                      JOIN pedidos p ON ip.pedido_id = p.id 
-                      WHERE ip.pedido_id = ? AND ip.vendedor_id = ?";
+
+    // Verificar se o pedido tem produtos desse vendedor
+    $sql_verificar = "SELECT COUNT(*) as total 
+                      FROM itens_pedido ip
+                      JOIN produtos pr ON ip.produto_id = pr.id
+                      WHERE ip.pedido_id = ? AND pr.id_vendedor = ?";
     $stmt = $conexao->prepare($sql_verificar);
     $stmt->bind_param("ii", $pedido_id, $vendedor_id);
     $stmt->execute();
     $stmt->bind_result($total);
     $stmt->fetch();
     $stmt->close();
-    
+
     if ($total > 0) {
         // Atualizar status do pedido
         $sql_atualizar = "UPDATE pedidos SET status = ? WHERE id = ?";
@@ -32,8 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pedido_id']) && isset
         $stmt->bind_param("si", $novo_status, $pedido_id);
         $stmt->execute();
         $stmt->close();
-        
-        // Atualizar data específica baseada no status
+
+        // Atualizar datas baseadas no status
+        $sql_data = null;
         if ($novo_status === 'preparando') {
             $sql_data = "UPDATE pedidos SET data_pagamento = NOW() WHERE id = ?";
         } elseif ($novo_status === 'enviado') {
@@ -41,34 +45,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pedido_id']) && isset
         } elseif ($novo_status === 'entregue') {
             $sql_data = "UPDATE pedidos SET data_entrega = NOW() WHERE id = ?";
         }
-        
-        if (isset($sql_data)) {
+
+        if ($sql_data) {
             $stmt = $conexao->prepare($sql_data);
             $stmt->bind_param("i", $pedido_id);
             $stmt->execute();
             $stmt->close();
         }
-        
+
         $mensagem = "Status atualizado com sucesso!";
     }
 }
 
+// -----------------------------
 // Buscar pedidos do vendedor
-$sql_pedidos = "SELECT DISTINCT p.*, u.nome as nome_cliente, u.email as email_cliente,
-                COUNT(ip.id) as total_itens
-                FROM pedidos p 
+// -----------------------------
+$sql_pedidos = "SELECT DISTINCT p.*, c.nome AS nome_cliente, c.email AS email_cliente,
+                COUNT(ip.id) AS total_itens
+                FROM pedidos p
                 JOIN itens_pedido ip ON p.id = ip.pedido_id
-                JOIN usuarios u ON p.usuario_id = u.id
-                WHERE ip.vendedor_id = ?
+                JOIN produtos pr ON ip.produto_id = pr.id
+                JOIN usuarios c ON p.usuario_id = c.id
+                WHERE pr.id_vendedor = ?
                 GROUP BY p.id
                 ORDER BY p.data_criacao DESC";
+
 $stmt = $conexao->prepare($sql_pedidos);
 $stmt->bind_param("i", $vendedor_id);
 $stmt->execute();
 $pedidos = $stmt->get_result();
 $stmt->close();
 
-// Estatísticas
+// -----------------------------
+// Estatísticas do vendedor
+// -----------------------------
 $sql_stats = "SELECT 
                 COUNT(DISTINCT p.id) as total_pedidos,
                 SUM(CASE WHEN p.status = 'pendente' THEN 1 ELSE 0 END) as pendentes,
@@ -76,15 +86,18 @@ $sql_stats = "SELECT
                 SUM(CASE WHEN p.status = 'preparando' THEN 1 ELSE 0 END) as preparando,
                 SUM(CASE WHEN p.status = 'enviado' THEN 1 ELSE 0 END) as enviados,
                 SUM(CASE WHEN p.status = 'entregue' THEN 1 ELSE 0 END) as entregues
-              FROM pedidos p 
+              FROM pedidos p
               JOIN itens_pedido ip ON p.id = ip.pedido_id
-              WHERE ip.vendedor_id = ?";
+              JOIN produtos pr ON ip.produto_id = pr.id
+              WHERE pr.id_vendedor = ?";
+
 $stmt = $conexao->prepare($sql_stats);
 $stmt->bind_param("i", $vendedor_id);
 $stmt->execute();
 $stats = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

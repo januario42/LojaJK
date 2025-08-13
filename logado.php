@@ -139,43 +139,6 @@ $quantidadeCarrinho = isset($_SESSION['carrinho']) ? array_sum($_SESSION['carrin
 
 
     <!-- banner section starts -->
-    <section class="Promo" id="Promo">
-        <section class="banner-container">
-
-            <div class="banner">
-
-                <img src="images/collection-1.png" alt="">
-                <div class="content">
-                    <span>Produtos</span>
-                    <h3>50% off</h3>
-                    <a href="#" class="btn">Comprar</a>
-                </div>
-
-            </div>
-
-            <div class="banner">
-
-                <img src="images/collection-2.png" alt="">
-                <div class="content">
-                    <span>Produtos</span>
-                    <h3>50% off</h3>
-                    <a href="#" class="btn">Comprar</a>
-                </div>
-
-            </div>
-
-            <div class="banner">
-
-                <img src="images/collection-3.png" alt="">
-                <div class="content">
-                    <span>Produtos</span>
-                    <h3>50% off</h3>
-                    <a href="#" class="btn">Comprar</a>
-                </div>
-
-            </div>
-
-        </section>
 
         <!-- banner section ends -->
 
@@ -216,44 +179,38 @@ $quantidadeCarrinho = isset($_SESSION['carrinho']) ? array_sum($_SESSION['carrin
 
         <section class="services" id="services">
 
-            <h1 class="heading">NOSSOS <span>SERVIÇOS </span></h1>
+    <h1 class="heading">NOSSOS <span>SERVIÇOS</span></h1>
 
-            <div class="box-container">
+    <div class="box-container">
 
-                <div class="box">
-                    <data class="card-number" value="01">01</data>
-                    <h3>Texto de sua preferência</h3>
-                    <p>Crie peças de mobiliário personalizadas, adaptadas ao seu estilo e necessidades únicas.</p>
-                </div>
+        <div class="box">
+            <data class="card-number" value="01">01</data>
+            <h3>Cadastro de Produtos</h3>
+            <p>Permite que os alunos cadastrem facilmente os produtos que desejam vender dentro da escola.</p>
+        </div>
 
-                <div class="box">
-                    <data class="card-number" value="02">02</data>
-                    <h3>Texto de sua preferência</h3>
-                    <p>Crie peças de mobiliário personalizadas, adaptadas ao seu estilo e necessidades únicas.</p>
-                </div>
+        <div class="box">
+            <data class="card-number" value="02">02</data>
+            <h3>Gerenciamento de Vendas</h3>
+            <p>Controle rápido de pedidos, status de vendas e histórico, tudo em um só lugar.</p>
+        </div>
 
-                <div class="box">
-                    <data class="card-number" value="03">03</data>
-                    <h3>Texto de sua preferência</h3>
-                    <p>Crie peças de mobiliário personalizadas, adaptadas ao seu estilo e necessidades únicas.</p>
-                </div>
+        <div class="box">
+            <data class="card-number" value="03">03</data>
+            <h3>Relatórios Simples</h3>
+            <p>Visualize gráficos e estatísticas para acompanhar o desempenho das vendas de forma clara e rápida.</p>
+        </div>
 
-                <div class="box">
-                    <data class="card-number" value="04">04</data>
-                    <h3>Texto de sua preferência</h3>
-                    <p>Crie peças de mobiliário personalizadas, adaptadas ao seu estilo e necessidades únicas.</p>
-                </div>
+        <div class="box">
+            <data class="card-number" value="04">04</data>
+            <h3>Facilidade e Agilidade</h3>
+            <p>Um sistema intuitivo que ajuda os alunos a venderem mais rápido e de forma organizada.</p>
+        </div>
 
-                <div class="box">
-                    <data class="card-number" value="05">05</data>
-                    <h3>Texto de sua preferência</h3>
-                    <p>Crie peças de mobiliário personalizadas, adaptadas ao seu estilo e necessidades únicas.</p>
-                </div>
+    </div>
 
+</section>
 
-            </div>
-
-        </section>
 
         <!-- services section ends -->
 
@@ -301,15 +258,10 @@ $quantidadeCarrinho = isset($_SESSION['carrinho']) ? array_sum($_SESSION['carrin
                     <div class="card-content">
                         <h3><?= escapar($produto['nome']) ?></h3>
                         <div class="price-wrapper">
-                            <del class="del">R$<?= number_format($precoOriginal, 2, ',', '.') ?></del>
-                            <data class="price">R$<?= number_format($precoFinal, 2, ',', '.') ?></data>
-                            <span style="color: green; font-size: 0.9rem;">-<?= $desconto['percentual']; ?>%</span>
-                            <br>
-                            <small style="color: #666;">Promoção válida até
-                                <?= date('d/m/Y', strtotime($desconto['validade'])); ?></small>
+                            <data class="price">R$<?= number_format($precoOriginal, 2, ',', '.') ?></data>
                         </div>
                     </div>
-                </div>
+
                 <?php endwhile; ?>
                 <?php else: ?>
                 <p>Nenhum produto disponível.</p>
@@ -384,182 +336,163 @@ $quantidadeCarrinho = isset($_SESSION['carrinho']) ? array_sum($_SESSION['carrin
         <!-- products section ends -->
 
         <!-- review section starts -->
+<section class="review" id="review">
 
-        <section class="review" id="review">
+    <div class="row">
 
-            <div class="row">
+        <div class="swiper review-slider">
 
-                <div class="swiper review-slider">
+            <div class="swiper-wrapper">
 
-                    <div class="swiper-wrapper">
-
-                        <div class="swiper-slide slide">
-                            <h2 class="heading">avaliação do cliente</h2>
-                            <i class="fas fa-quote-right"></i>
-                            <div class="user">
-                                <img src="images/pic-1.png" alt="">
-                                <div class="user-info">
-                                    <h3>john lax</h3>
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                </div>
+                <div class="swiper-slide slide">
+                    <h2 class="heading">Avaliação do aluno</h2>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="images/pic-1.png" alt="">
+                        <div class="user-info">
+                            <h3>Ana Clara</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
                             </div>
-                            <p>Texto de sua preferência.</p>
                         </div>
-
-                        <div class="swiper-slide slide">
-                            <h2 class="heading">avaliação do cliente</h2>
-                            <i class="fas fa-quote-right"></i>
-                            <div class="user">
-                                <img src="images/pic-2.png" alt="">
-                                <div class="user-info">
-                                    <h3>john lax</h3>
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>Texto de sua preferência.</p>
-                        </div>
-
-                        <div class="swiper-slide slide">
-                            <h2 class="heading">avaliação do cliente</h2>
-                            <i class="fas fa-quote-right"></i>
-                            <div class="user">
-                                <img src="images/pic-3.png" alt="">
-                                <div class="user-info">
-                                    <h3>john lax</h3>
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>Texto de sua preferência.</p>
-                        </div>
-
-                        <div class="swiper-slide slide">
-                            <h2 class="heading">Avaliação do cliente</h2>
-                            <i class="fas fa-quote-right"></i>
-                            <div class="user">
-                                <img src="images/pic-4.png" alt="">
-                                <div class="user-info">
-                                    <h3>john lax</h3>
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>Texto de sua preferência.</p>
-                        </div>
-
-                        <div class="swiper-slide slide">
-                            <h2 class="heading">Avaliação do cliente</h2>
-                            <i class="fas fa-quote-right"></i>
-                            <div class="user">
-                                <img src="images/pic-5.png" alt="">
-                                <div class="user-info">
-                                    <h3>john lax</h3>
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>Texto de sua preferência.</p>
-                        </div>
-
-                        <div class="swiper-slide slide">
-                            <h2 class="heading">Avaliação do cliente</h2>
-                            <i class="fas fa-quote-right"></i>
-                            <div class="user">
-                                <img src="images/pic-6.png" alt="">
-                                <div class="user-info">
-                                    <h3>john lax</h3>
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>Texto de sua preferência.</p>
-                        </div>
-
                     </div>
-
-                    <div class="swiper-pagination"></div>
-
+                    <p>Adorei como posso cadastrar meus produtos e acompanhar as vendas de forma prática!</p>
                 </div>
 
-                <div class="accordion-container">
-
-                    <div class="accordion active">
-                        <div class="accordion-heading">
-                            <h3>Como posso fazer um pedido?</h3>
-                            <i class="fas fa-angle-down"></i>
+                <div class="swiper-slide slide">
+                    <h2 class="heading">Avaliação do aluno</h2>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="images/pic-2.png" alt="">
+                        <div class="user-info">
+                            <h3>Lucas Silva</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
                         </div>
-                        <p class="accordion-content">
-                            Texto de sua preferência.
-                        </p>
                     </div>
+                    <p>O sistema facilita muito minhas vendas e ajuda a organizar meus pedidos.</p>
+                </div>
 
-                    <div class="accordion">
-                        <div class="accordion-heading">
-                            <h3>O site loja com é confiável ?</h3>
-                            <i class="fas fa-angle-down"></i>
+                <div class="swiper-slide slide">
+                    <h2 class="heading">Avaliação do aluno</h2>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="images/pic-3.png" alt="">
+                        <div class="user-info">
+                            <h3>Mariana Costa</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
                         </div>
-                        <p class="accordion-content">
-                            Texto de sua preferência.
-                        </p>
                     </div>
+                    <p>Agora consigo acompanhar todas as minhas vendas e clientes sem me perder nos pedidos.</p>
+                </div>
 
-                    <div class="accordion">
-                        <div class="accordion-heading">
-                            <h3>aceita crédito, débito e pix?</h3>
-                            <i class="fas fa-angle-down"></i>
+                <div class="swiper-slide slide">
+                    <h2 class="heading">Avaliação do aluno</h2>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="images/pic-4.png" alt="">
+                        <div class="user-info">
+                            <h3>Rafael Gomes</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
                         </div>
-                        <p class="accordion-content">
-                            Texto de sua preferência.
-                        </p>
                     </div>
+                    <p>O sistema incentiva o empreendedorismo dentro da escola de forma simples e eficiente.</p>
+                </div>
 
-                    <div class="accordion">
-                        <div class="accordion-heading">
-                            <h3>Como funciona o frete?</h3>
-                            <i class="fas fa-angle-down"></i>
+                <div class="swiper-slide slide">
+                    <h2 class="heading">Avaliação do aluno</h2>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="images/pic-5.png" alt="">
+                        <div class="user-info">
+                            <h3>Beatriz Lima</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
                         </div>
-                        <p class="accordion-content">
-                            Texto de sua preferência.
-                        </p>
                     </div>
-
+                    <p>Recomendo para todos os alunos que querem começar a vender seus produtos na escola.</p>
                 </div>
 
             </div>
 
-        </section>
+            <div class="swiper-pagination"></div>
+
+        </div>
+
+        <div class="accordion-container">
+
+            <div class="accordion active">
+                <div class="accordion-heading">
+                    <h3>Como posso cadastrar meus produtos?</h3>
+                    <i class="fas fa-angle-down"></i>
+                </div>
+                <p class="accordion-content">
+                    Basta acessar sua conta, clicar em "Adicionar Produto" e preencher os detalhes do item que deseja vender.
+                </p>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-heading">
+                    <h3>O sistema é seguro e confiável?</h3>
+                    <i class="fas fa-angle-down"></i>
+                </div>
+                <p class="accordion-content">
+                    Sim! Todas as informações são armazenadas de forma segura e os pedidos são acompanhados em tempo real.
+                </p>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-heading">
+                    <h3>Quais formas de pagamento são aceitas?</h3>
+                    <i class="fas fa-angle-down"></i>
+                </div>
+                <p class="accordion-content">
+                    O sistema permite pagamento via cartão, PIX ou transferência interna da escola, conforme definido pelo administrador.
+                </p>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-heading">
+                    <h3>Como funcionam os relatórios de vendas?</h3>
+                    <i class="fas fa-angle-down"></i>
+                </div>
+                <p class="accordion-content">
+                    Você pode visualizar gráficos e estatísticas das suas vendas, acompanhar os pedidos e verificar o desempenho dos seus produtos.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 
         <!-- review section ends -->
 
@@ -614,7 +547,7 @@ $quantidadeCarrinho = isset($_SESSION['carrinho']) ? array_sum($_SESSION['carrin
 
             </div>
 
-            <div class="credit">© Feito por.<span> Kauã Januário e Pedro Rodrigues</span> </div>
+            <div class="credit">© Feito por.<span> Enzo</span> </div>
 
         </section>
 

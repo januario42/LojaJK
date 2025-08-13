@@ -28,15 +28,16 @@ if (!$pedido) {
 
 // Buscar itens do pedido
 $sql_itens = "SELECT ip.*, p.nome as nome_produto, p.imagem as imagem_produto, u.nome as nome_vendedor
-              FROM itens_pedido ip 
-              JOIN produtos p ON ip.produto_id = p.id 
-              JOIN usuarios u ON ip.vendedor_id = u.id
+              FROM itens_pedido ip
+              JOIN produtos p ON ip.produto_id = p.id
+              JOIN usuarios u ON p.id_vendedor = u.id
               WHERE ip.pedido_id = ?";
 $stmt = $conexao->prepare($sql_itens);
 $stmt->bind_param("i", $pedido_id);
 $stmt->execute();
 $itens = $stmt->get_result();
 $stmt->close();
+
 
 // Função para obter o status em português
 function getStatusText($status) {

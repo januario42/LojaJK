@@ -60,12 +60,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pedido_id = $conexao->insert_id;
         
         // Salvar itens do pedido
-        foreach ($produtos as $item) {
-            $stmt = $conexao->prepare("INSERT INTO itens_pedido (pedido_id, produto_id, vendedor_id, quantidade, preco_unitario, subtotal) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("iiidd", $pedido_id, $item['produto']['id'], $item['produto']['id_vendedor'], $item['quantidade'], $item['produto']['preco'], $item['subtotal']);
-            $stmt->execute();
-        }
-        
+   foreach ($produtos as $p) {
+    $stmt_item = $conexao->prepare("INSERT INTO itens_pedido (pedido_id, produto_id, usuario_id, quantidade, preco_unitario, subtotal) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt_item->bind_param(
+        "iiiidd",
+        $pedido_id,
+        $p['produto']['id'],
+        $_SESSION['id_usuario'], // <-- usuário logado
+        $p['quantidade'],
+        $p['produto']['preco'],
+        $p['subtotal']
+    );
+    $stmt_item->execute();
+}
+
         // Configurar Mercado Pago
         MercadoPagoConfig::setAccessToken(getMercadoPagoToken());
         
@@ -129,11 +137,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
         
     } catch (MPApiException $e) {
-        $erro = "Erro ao processar pagamento: " . $e->getMessage();
+        // Lidar com erros de API do MercadoPago
+        $erro = "Erro na API do MercadoPago: " . $e->getMessage();
         $erro .= "<br>Código: " . $e->getApiResponse()->getStatusCode();
         $erro .= "<br>Resposta: " . json_encode($e->getApiResponse()->getContent());
+        echo $erro;
     } catch (Exception $e) {
-        $erro = "Erro inesperado: " . $e->getMessage();
+        echo "Erro ao processar pagamento: " . $e->getMessage();
     }
 }
 ?>
@@ -318,4 +328,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html> 
+</html>

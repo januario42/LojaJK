@@ -34,18 +34,26 @@ if ($tipo_usuario === 'vendedor') {
     $stmt->bind_result($total_produtos);
     $stmt->fetch();
     $stmt->close();
-    
-    // Total de vendas
-    $sql_vendas = "SELECT COUNT(*) as total FROM vendas WHERE vendedor_id = ?";
+
+    // Total de vendas (pedidos entregues)
+    $sql_vendas = "SELECT COUNT(DISTINCT p.id) AS total_vendas
+                   FROM itens_pedido ip
+                   JOIN pedidos p ON ip.pedido_id = p.id
+                   JOIN produtos pr ON ip.produto_id = pr.id
+                   WHERE pr.id_vendedor = ? AND p.status = 'entregue'";
     $stmt = $conexao->prepare($sql_vendas);
     $stmt->bind_param("i", $usuario_id);
     $stmt->execute();
     $stmt->bind_result($total_vendas);
     $stmt->fetch();
     $stmt->close();
-    
-    // Faturamento total
-    $sql_faturamento = "SELECT SUM(valor_total) as total FROM vendas WHERE vendedor_id = ?";
+
+    // Faturamento total (somente pedidos entregues)
+    $sql_faturamento = "SELECT SUM(ip.subtotal) AS faturamento_total
+                        FROM itens_pedido ip
+                        JOIN pedidos p ON ip.pedido_id = p.id
+                        JOIN produtos pr ON ip.produto_id = pr.id
+                        WHERE pr.id_vendedor = ? AND p.status = 'entregue'";
     $stmt = $conexao->prepare($sql_faturamento);
     $stmt->bind_param("i", $usuario_id);
     $stmt->execute();
