@@ -79,7 +79,7 @@ CREATE TABLE vendas (
 
 INSERT INTO usuarios (nome, email, senha, tipo_usuario, nome_loja)
 VALUES ('Administrador', 'admin@lojajk.com',
-'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendedor', 'Loja JK');
+'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'Loja JK');
 
 ALTER TABLE itens_pedido ADD usuario_id INT NOT NULL AFTER produto_id;
 ALTER TABLE itens_pedido MODIFY COLUMN usuario_id INT NULL;
@@ -87,3 +87,7 @@ ALTER TABLE pedidos
 ADD COLUMN data_envio TIMESTAMP NULL,
 ADD COLUMN data_entrega TIMESTAMP NULL;
 
+ALTER TABLE usuarios MODIFY tipo_usuario ENUM('comprador','vendedor','admin') NOT NULL;
+INSERT INTO usuarios (nome, email, senha, tipo_usuario, nome_loja)
+VALUES ('Administrador', 'admin@lojaj.com',
+'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'Loja JK');

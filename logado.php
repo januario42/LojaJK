@@ -108,7 +108,6 @@ $quantidadeCarrinho = isset($_SESSION['carrinho']) ? array_sum($_SESSION['carrin
 
             <nav class="navbar">
                 <a href="#home">HOME</a>
-                <a href="#Promo">PROMOÇÕES</a>
                 <a href="sobreNos.php">SOBRE NÓS</a>
                 <a href="#services">NOSSOS SERVIÇOS</a>
                 <a href="#product">NOSSOS PRODUTOS</a>
@@ -165,7 +164,6 @@ $quantidadeCarrinho = isset($_SESSION['carrinho']) ? array_sum($_SESSION['carrin
                         criatividade, à organização e ao aprendizado meticuloso. Papéis suaves que acariciam as canetas,
                         marcadores vibrantes que saltam das páginas, e mochilas robustas que carregam sonhos.
                     </p>
-                    <a href="#" class="btn">Comprar</a>
                 </div>
 
             </div>
@@ -261,6 +259,7 @@ $quantidadeCarrinho = isset($_SESSION['carrinho']) ? array_sum($_SESSION['carrin
                             <data class="price">R$<?= number_format($precoOriginal, 2, ',', '.') ?></data>
                         </div>
                     </div>
+                </div>
 
                 <?php endwhile; ?>
                 <?php else: ?>

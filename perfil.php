@@ -81,6 +81,14 @@ if ($tipo_usuario === 'vendedor') {
             margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
+        .stats-card-admin {
+            background: linear-gradient(135deg, #1a237e, #3949ab);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
         .status-badge {
             padding: 5px 12px;
             border-radius: 20px;
@@ -120,8 +128,6 @@ if ($tipo_usuario === 'vendedor') {
 
             <?php if ($tipo_usuario === 'vendedor'): ?>
                 <h5>Loja: <?php echo htmlspecialchars($nome_loja); ?></h5>
-                
-                <!-- Estatísticas do Vendedor -->
                 <div class="stats-card">
                     <h6><i class="fas fa-box"></i> Produtos</h6>
                     <h3><?php echo $total_produtos; ?></h3>
@@ -134,12 +140,26 @@ if ($tipo_usuario === 'vendedor') {
                     <h6><i class="fas fa-dollar-sign"></i> Faturamento</h6>
                     <h3>R$ <?php echo number_format($faturamento_total, 2, ',', '.'); ?></h3>
                 </div>
-                
                 <a href="editar_perfil.php" class="btn btn-edit-profile">Editar Perfil</a>
                 <a href="adicionar_produto.php" class="btn btn-custom">Adicionar Produto</a>
                 <a href="meus_produtos.php" class="btn btn-custom">Gerenciar Produtos</a>
                 <a href="dashboard_vendedor.php" class="btn btn-custom">Dashboard</a>
                 <a href="pedidos_vendedor.php" class="btn btn-custom">Meus Pedidos</a>
+            <?php elseif ($tipo_usuario === 'admin'): ?>
+                <h5>Administrador</h5>
+                <div class="stats-card-admin">
+                    <h6><i class="fas fa-users"></i> Gerenciar Usuários</h6>
+                    <a href="admin_usuarios.php" class="btn btn-light btn-sm">Usuários</a>
+                </div>
+                <div class="stats-card-admin">
+                    <h6><i class="fas fa-boxes"></i> Gerenciar Produtos</h6>
+                    <a href="admin_produtos.php" class="btn btn-light btn-sm">Produtos</a>
+                </div>
+                <div class="stats-card-admin">
+                    <h6><i class="fas fa-shopping-basket"></i> Gerenciar Pedidos</h6>
+                    <a href="admin_pedidos.php" class="btn btn-light btn-sm">Pedidos</a>
+                </div>
+                <a href="editar_perfil.php" class="btn btn-edit-profile">Editar Perfil</a>
             <?php else: ?>
                 <a href="editar_perfil.php" class="btn btn-edit-profile">Editar Perfil</a>
                 <a href="carrinho.php" class="btn btn-custom">Meu Carrinho</a>
@@ -149,7 +169,6 @@ if ($tipo_usuario === 'vendedor') {
 
         <div class="profile-content">
             <h2><i class="fas fa-shopping-bag"></i> Meus Pedidos</h2>
-            
             <?php if ($pedidos->num_rows > 0): ?>
                 <div class="row">
                     <?php while ($pedido = $pedidos->fetch_assoc()): ?>
