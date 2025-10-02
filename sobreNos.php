@@ -3,10 +3,6 @@ $favoritos = $_SESSION['favoritos'] ?? [];
 $quantidadeFavoritos = count($favoritos);
 ?>
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -15,10 +11,98 @@ $quantidadeFavoritos = count($favoritos);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre nós</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="./css/sobreNos.css">
-</head>
+    <style>
+        .sobre-nos-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 3rem 1rem 2rem 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
+        .sobre-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 1.2rem;
+            box-shadow: 0 8px 32px rgba(12, 180, 34, 0.13), 0 1.5px 6px rgba(0, 0, 0, 0.07);
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 700px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow .3s, transform .3s, background .3s;
+            border-left: 7px solid #0cb422;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 0.8s;
+        }
+
+        .sobre-card:hover {
+            box-shadow: 0 16px 40px rgba(12, 180, 34, 0.18), 0 2px 8px rgba(0, 0, 0, 0.09);
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.99);
+            border-left: 7px solid #ffe600;
+        }
+
+        .sobre-card h3 {
+            color: #0cb422;
+            margin-bottom: 1.2rem;
+            font-size: 2.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-shadow: 0 2px 8px #0cb42222;
+        }
+
+        .sobre-card p {
+            color: #222;
+            font-size: 1.18rem;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .sobre-card b {
+            color: #0cb422;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sobre-nos-container {
+                padding: 1.5rem 0.5rem;
+                gap: 1.2rem;
+            }
+
+            .sobre-card {
+                padding: 1.2rem 0.7rem;
+                border-radius: 0.7rem;
+                font-size: 1rem;
+            }
+
+            .sobre-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .sobre-card p {
+                font-size: 0.98rem;
+            }
+        }
+    </style>
+</head>
 
 <body>
     <!-- header section starts -->
@@ -69,7 +153,6 @@ $quantidadeFavoritos = count($favoritos);
         <div class="header-main">
             <nav class="navbar">
                 <a href="logado.php#home">HOME</a>
-                <a href="logado.php#Promo">PROMOÇÕES</a>
                 <a href="sobreNos.php">SOBRE NÓS</a>
                 <a href="logado.php#services">NOSSOS SERVIÇOS</a>
                 <a href="logado.php#product">NOSSOS PRODUTOS</a>
@@ -77,122 +160,47 @@ $quantidadeFavoritos = count($favoritos);
             </nav>
         </div>
     </header>
-    
-    <script>
-        document.querySelectorAll('.btn-favorito').forEach(btn => {
-            btn.addEventListener('click', async function(e) {
-                e.preventDefault();
 
-                const id = this.dataset.id;
-                const icon = this.querySelector('i');
-
-                try {
-                    const res = await fetch('favorito_toggle.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: 'id=' + encodeURIComponent(id)
-                    });
-
-                    const json = await res.json();
-
-                    if (json.status === 'favoritado') {
-                        this.classList.add('ativo');
-                        icon.classList.remove('far');
-                        icon.classList.add('fas');
-                    } else {
-                        this.classList.remove('ativo');
-                        icon.classList.remove('fas');
-                        icon.classList.add('far');
-                    }
-                } catch (err) {
-                    console.error('Erro ao favoritar:', err);
-                }
-            });
-        });
-    </script>
-
-    <section class="container">
-        <!--  
-        <div class="carousel-backgrounds">
-            <div class="bg-slide active" style="background-image: url('uploads/67f5ad3ddff37.jpg');"></div>
-            <div class="bg-slide" style="background-image: url('uploads/classe.jpg');"></div>
-            <div class="bg-slide" style="background-image: url('uploads/classe.jpg');"></div>
-        </div>
-        -->
-       
-        
-
-        <div class="content left card">
+    <section class="sobre-nos-container">
+        <div class="sobre-card">
             <h3>Nossa História</h3>
             <p>
-                Estamos no mercado desde 2019 e, desde então, buscamos oferecer qualidade e diversidade em cada
-                produto. A Loja JK nasceu para tornar as compras mais práticas e acessíveis, reunindo tudo o que
-                você precisa em um só lugar.
-                Com dedicação e compromisso, seguimos inovando para atender nossos clientes com excelência.
-                Loja JK—confiança e variedade para o seu dia a dia.
+                Estamos no mercado desde 2019 e, desde então, buscamos oferecer qualidade e diversidade em cada produto. A Loja JK nasceu para tornar as compras mais práticas e acessíveis, reunindo tudo o que você precisa em um só lugar.<br>
+                Com dedicação e compromisso, seguimos inovando para atender nossos clientes com excelência.<br>
+                <b>Loja JK</b> — confiança e variedade para o seu dia a dia.
             </p>
         </div>
-
-        
-
-        <div class="content right card">
+        <div class="sobre-card">
             <h3>Missão</h3>
             <p>
-                Oferecer variedade, qualidade e praticidade para tornar a experiência de compra acessível e
-                satisfatória.
-                Nosso compromisso é atender nossos clientes com excelência, trazendo produtos que facilitem o dia a
-                dia e proporcionem bem-estar.
+                Oferecer variedade, qualidade e praticidade para tornar a experiência de compra acessível e satisfatória.<br>
+                Nosso compromisso é atender nossos clientes com excelência, trazendo produtos que facilitem o dia a dia e proporcionem bem-estar.
             </p>
         </div>
-
-        <div class="content left card">
+        <div class="sobre-card">
             <h3>Visão</h3>
             <p>
-                Ser referência no mercado, oferecendo uma experiência de compra acessível, confiável e inovadora.
-                Buscamos crescer junto com nossos clientes, sempre trazendo produtos que atendam às suas
-                necessidades com qualidade e praticidade.
+                Ser referência no mercado, oferecendo uma experiência de compra acessível, confiável e inovadora.<br>
+                Buscamos crescer junto com nossos clientes, sempre trazendo produtos que atendam às suas necessidades com qualidade e praticidade.
             </p>
         </div>
-        
-        <div class="content right card">
+        <div class="sobre-card">
             <h3>Valores</h3>
-            <p> 
-                <b>Compromisso com a qualidade:</b> Oferecemos produtos selecionados para garantir a melhor experiência de compra.
-                <b>Respeito e transparência:</b> Construímos relações baseadas na confiança e na honestidade com nossos clientes e parceiros.
-                <b>Inovação constante:</b> Estamos sempre buscando novidades para oferecer praticidade e variedade.
-                <b>Excelência no atendimento:</b> Priorizamos o bom atendimento, proporcionando soluções rápidas e eficazes.
+            <p>
+                <b>Compromisso com a qualidade:</b> Oferecemos produtos selecionados para garantir a melhor experiência de compra.<br>
+                <b>Respeito e transparência:</b> Construímos relações baseadas na confiança e na honestidade com nossos clientes e parceiros.<br>
+                <b>Inovação constante:</b> Estamos sempre buscando novidades para oferecer praticidade e variedade.<br>
+                <b>Excelência no atendimento:</b> Priorizamos o bom atendimento, proporcionando soluções rápidas e eficazes.<br>
                 <b>Satisfação do cliente:</b> Nossa maior missão é atender às necessidades de quem confia na Loja JK.
             </p>
         </div>
-        
-        <div class="linha-divisoria"></div>
-    </section>                
-
-    <section class="carousel-container">
-        
-
-        <script>
-        const slides = document.querySelectorAll('.bg-slide');
-        let current = 0;
-
-        setInterval(() => {
-            slides[current].classList.remove('active');
-            current = (current + 1) % slides.length;
-            slides[current].classList.add('active');
-        }, 5000); 
-        </script>
-        
     </section>
 
     <section class="footer">
-
         <div class="box-container">
 
             <div class="box">
                 <h3>Encontre-nos aqui</h3>
-                <p></p>
                 <div class="share">
                     <a href="#" class="fab fa-facebook"></a>
                     <a href="#" class="fab fa-twitter"></a>
@@ -203,16 +211,16 @@ $quantidadeFavoritos = count($favoritos);
 
             <div class="box">
                 <h3>Links Rápidos</h3>
-                <a href="#" class="links"> política de Privacidade</a>
-                <a href="#" class="links"> devoluções e trocas</a>
-                <a href="#" class="links"> Avaliações de Clientes</a>
+                <a href="#" class="links">Política de Privacidade</a>
+                <a href="#" class="links">Devoluções e Trocas</a>
+                <a href="#" class="links">Avaliações de Clientes</a>
             </div>
 
             <div class="box">
                 <h3>Contate-nos</h3>
-                <a href="#" class="links"> +21-98000-0000</a>
-                <a href="#" class="links"> +21-98000-0000</a>
-                <a href="#" class="links"> Loja.@gmail.com</a>
+                <a href="#" class="links">+21-98000-0000</a>
+                <a href="#" class="links">+21-98000-0000</a>
+                <a href="#" class="links">Loja.@gmail.com</a>
             </div>
 
         </div>
@@ -220,8 +228,10 @@ $quantidadeFavoritos = count($favoritos);
         <div class="credit">© Feito por.<span> Enzo</span> </div>
 
     </section>
-    
+
 
 </body>
 
 </html>
+
+

@@ -195,7 +195,7 @@ section{
 .container .content p{
     font-size: 1.5rem;
     line-height: 2;
-    color: #777;
+    color: #5c5c5c;
     padding: 1rem 0;
 }
 .left{
@@ -220,7 +220,7 @@ section{
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
 }
 .card:hover{
-    background-color: #025c0e;
+    background-color: #0cb422;
     color: #effffd;
 }
 
@@ -231,7 +231,7 @@ section{
     right: -115px;
     width: 115px;
     height: 1px;
-    background-color: #025c0e;
+    background-color: #000000;
     transform: translateY(-50%);
 }
 
@@ -257,11 +257,16 @@ section{
 }
 
 @media(max-width: 1024px){
-    .linha-divisoria{
+    .container {
+        flex-direction: column;
+        align-items: center;
+        background-position: center !important;
+    }
+    .linha-divisoria {
         display: none;
     }
-
-    .card.left::before,.card.right::before{
+    .card.left::before,
+    .card.right::before {
         display: none;
     }
 
@@ -289,7 +294,7 @@ section{
 
 .bg-slide.active {
     opacity: 1;
-    z-index: 1;
+    z-index: 1;
 }
 
 /* end container*/
@@ -434,13 +439,88 @@ section{
         width: 50%;
     }
 
-} 
+}
 
-
-@media (max-width:450px){
-    html{
-        font-size: 50%;
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        background-position: center !important;
     }
+    .linha-divisoria {
+        display: none;
+    }
+    .card.left::before,
+    .card.right::before {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 2rem 2%;
+        min-height: auto;
+    }
+    .content.card {
+        margin: 2rem 0;
+        padding: 2rem 1rem;
+        max-width: 100%;
+    }
+    .heading {
+        font-size: 2.5rem;
+    }
+    .container .content h3 {
+        font-size: 2.5rem;
+    }
+    .container .content p {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .container {
+        padding: 1rem 0.5rem;
+    }
+    .content.card {
+        margin: 1rem 0;
+        padding: 1rem 0.5rem;
+    }
+    .footer .box-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .footer .credit {
+        font-size: 1.2rem;
+        padding-top: 1rem;
+    }
+    @media (max-width: 1024px) {
+    .linha-divisoria {
+        display: none !important;
+    }
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .content.card {
+        width: 100%;
+        max-width: 100%;
+        margin: 1.5rem 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem 0.5rem;
+    }
+    .content.card {
+        padding: 1rem 0.5rem;
+        font-size: 1rem;
+    }
+    .heading,
+    .container .content h3 {
+        font-size: 2rem;
+    }
+}
 }
 .btn-favorito.ativo i {
     color: red;
